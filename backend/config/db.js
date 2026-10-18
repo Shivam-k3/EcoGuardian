@@ -10,7 +10,8 @@ const supabase = require('../services/supabase');
 const connectDB = async () => {
   if (!supabase.isConfigured()) {
     if (process.env.NODE_ENV === 'production') {
-      console.error('Fatal: Supabase is not configured in production environment');
+      // Names only — never values — so this is safe to print in production logs.
+      console.error(`Fatal: Supabase is not configured in production environment (missing or empty: ${supabase.missingConfig().join(', ')})`);
       process.exit(1);
     }
     console.warn('Supabase is not configured — API auth/tenancy features will be unavailable');

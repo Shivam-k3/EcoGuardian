@@ -38,9 +38,20 @@ function profilesClient() {
   return adminClient();
 }
 
+/**
+ * Required env var NAMES that are missing or empty in this environment.
+ * Returns NAMES only — never values — so the result is always safe to log.
+ */
+function missingConfig() {
+  return ['SUPABASE_URL', 'SUPABASE_SECRET_KEY'].filter((name) => {
+    const value = process.env[name];
+    return typeof value !== 'string' || value.trim() === '';
+  });
+}
+
 /** Whether Supabase auth is configured in this environment. */
 function isConfigured() {
-  return !!(process.env.SUPABASE_URL && process.env.SUPABASE_SECRET_KEY);
+  return missingConfig().length === 0;
 }
 
 /**
@@ -61,5 +72,6 @@ module.exports = {
   adminClient,
   profilesClient,
   isConfigured,
+  missingConfig,
   verifyToken,
 };
