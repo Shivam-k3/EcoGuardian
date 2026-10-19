@@ -9,13 +9,6 @@ import { FieldError } from '../components/FormFeedback';
 import toast from 'react-hot-toast';
 import { supabase, isSupabaseConfigured } from '../services/supabaseClient';
 
-const sandboxAccounts = [
-  { label: 'Super admin', id: 'super@ecoguardian.ai', pass: 'admin123' },
-  { label: 'Campus admin', id: 'admin@ecoguardian.ai', pass: 'admin123' },
-  { label: 'Faculty', id: 'sarah@mit.edu', pass: 'Temp@123' },
-  { label: 'Student', id: 'demo@ecoguardian.ai', pass: 'demo123' },
-];
-
 function Typewriter({ text, speed = 60 }) {
   const [displayed, setDisplayed] = useState('');
   useEffect(() => {
@@ -75,8 +68,6 @@ export default function Login() {
       setLoading(false);
     }
   };
-
-  const quickFill = (id, pass) => setForm({ emailOrUserId: id, password: pass });
 
   const handleGoogleSignIn = async () => {
     if (!isSupabaseConfigured()) {
@@ -204,16 +195,6 @@ export default function Login() {
             </button>
           </form>
 
-          <div className="auth-sandbox" aria-label="Demo accounts">
-            <p>Demo access</p>
-            <div>
-              {sandboxAccounts.map((account) => (
-                <button key={account.id} type="button" onClick={() => quickFill(account.id, account.pass)}>
-                  <b>{account.label}</b><span>{account.id}</span>
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
 
         <footer className="auth-legal">
