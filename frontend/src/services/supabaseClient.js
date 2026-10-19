@@ -15,6 +15,15 @@ export function isSupabaseConfigured() {
   return Boolean(supabaseUrl && supabaseKey);
 }
 
+// Capture recovery-link markers BEFORE createClient() parses the URL and clears
+// window.location.hash (auth-js does this during client init). ResetPassword's
+// effect runs much later — in a lazy chunk — when the URL markers are already
+// gone, so it falls back to this module-load-time snapshot.
+export const hadRecoveryAuthParams =
+  typeof window !== 'undefined' &&
+  (window.location.hash.includes('type=recovery') ||
+    window.location.search.includes('type=recovery'));
+
 export const supabase = isSupabaseConfigured()
   ? createClient(supabaseUrl, supabaseKey)
   : null;

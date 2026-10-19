@@ -140,7 +140,7 @@ export default function Layout({ children }) {
     return () => document.removeEventListener('keydown', handleGlobalKey);
   }, []);
 
-  const handleLogout = () => { logout(); navigate('/login'); };
+  const handleLogout = async () => { await logout(); navigate('/login'); };
   const navGroups    = getNavGroups(user?.role);
   const roleLabel    = ROLE_LABELS[user?.role] ?? 'User';
 
