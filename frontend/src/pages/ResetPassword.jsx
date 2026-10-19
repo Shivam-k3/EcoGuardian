@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiKey, FiLock, FiEye, FiEyeOff, FiCheck, FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import { FieldError, FormSuccess } from '../components/FormFeedback';
 import toast from 'react-hot-toast';
-import { supabase, isSupabaseConfigured } from '../services/supabaseClient';
+import { supabase, isSupabaseConfigured, hadRecoveryAuthParams } from '../services/supabaseClient';
 import AuthBrandPanel from '../components/AuthBrandPanel';
 
 export default function ResetPassword() {
@@ -25,6 +25,7 @@ export default function ResetPassword() {
     }
     let active = true;
     const hasRecoveryParams =
+      hadRecoveryAuthParams ||
       window.location.hash.includes('type=recovery') ||
       window.location.search.includes('type=recovery');
 
