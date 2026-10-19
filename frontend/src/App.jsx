@@ -22,6 +22,36 @@ import ExplainableAI from './pages/ExplainableAI';
 import Twin from './pages/Twin';
 import Landing from './pages/Landing';
 import Legal from './pages/Legal';
+import { isSupabaseConfigured, missingSupabaseEnvVars } from './services/supabaseClient';
+
+function ConfigErrorScreen() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[#f7f9fa] dark:bg-gray-950 px-6">
+      <div className="max-w-md w-full rounded-2xl border border-red-200 dark:border-red-900 bg-white dark:bg-gray-900 p-8 shadow-sm">
+        <img src="/leaf.svg" alt="" className="w-10 h-10 mb-4" />
+        <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+          Configuration required
+        </h1>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          This deployment is missing required Supabase environment variables, so
+          EcoGuardian cannot start. The app was built without them being
+          available at build time.
+        </p>
+        <ul className="text-sm font-mono bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 rounded-lg px-4 py-3 mb-4">
+          {missingSupabaseEnvVars.map((name) => (
+            <li key={name}>{name}</li>
+          ))}
+        </ul>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Set both variables for the Production and Preview environments in the
+          Vercel project settings, then <strong>redeploy</strong> — Vercel bakes
+          environment variables in at build time, so existing deployments are
+          not updated retroactively.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function AppLayout() {
   // Roles with full personal mobility-tool access (spec §1/§4):
@@ -62,6 +92,15 @@ function AppLayout() {
 }
 
 export default function App() {
+  if (!isSupabaseConfigured()) {
+    if (import.meta.env.DEV) {
+      console.error(
+        'Supabase is not configured. Missing environment variables:',
+        missingSupabaseEnvVars
+      );
+    }
+    return <ConfigErrorScreen />;
+  }
   return (
     <ThemeProvider>
       <AuthProvider>
