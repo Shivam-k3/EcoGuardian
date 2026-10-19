@@ -24,6 +24,37 @@
 
 ---
 
+## Screenshots
+
+*Captured from the running platform. Signed-in account details (username and
+email) are blurred for privacy.*
+
+| | |
+|---|---|
+| **Landing page** | **Mobility dashboard** |
+| ![EcoGuardian landing page](docs/screenshots/landing-page.png) | ![Mobility dashboard with eco score, weekly totals, and ML transport forecast](docs/screenshots/dashboard.png) |
+| Public hero with the animated 3D Earth, particle field, and scroll story. | Personal mobility overview: today/week/month totals, eco score, green points, streak, and the ML transport forecast. |
+
+| | |
+|---|---|
+| **Explainable AI** | **Mobility simulator** |
+| ![Explainable AI attribution analysis](docs/screenshots/explainable-ai.png) | ![Mobility simulator with trip planning](docs/screenshots/mobility-simulator.png) |
+| SHAP attribution and per-mode composition analysis behind every prediction. | Trip planning with before/after CO₂ comparison against your baseline. |
+
+| | |
+|---|---|
+| **Mobility Twin** | **AI sustainability assistant** |
+| ![Mobility Twin scenario presets](docs/screenshots/mobility-twin.png) | ![AI sustainability assistant chat](docs/screenshots/ai-assistant.png) |
+| Scenario presets (mode shift, EV swap, carpool) with counterfactual emissions. | Transportation-domain Q&A grounded in your own mode breakdown. |
+
+| | |
+|---|---|
+| **Profile & preferences** | |
+| ![Profile and preferences page](docs/screenshots/profile-settings.png) | |
+| Account details, notification settings, theme, and daily CO₂ budget. | |
+
+---
+
 ## Feature Summary Table
 
 | # | Feature | Category | Status | Key Technical Detail |
